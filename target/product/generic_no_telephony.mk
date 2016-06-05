@@ -48,7 +48,6 @@ PRODUCT_PACKAGES += \
     audio_policy.default \
     local_time.default \
     vibrator.default \
-    power.default
 
 PRODUCT_COPY_FILES := \
         frameworks/av/media/libeffects/data/audio_effects.conf:system/etc/audio_effects.conf
