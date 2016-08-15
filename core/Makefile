@@ -1178,7 +1178,9 @@ endif
 $(INSTALLED_SYSTEMIMAGE): $(BUILT_SYSTEMIMAGE) $(RECOVERY_FROM_BOOT_PATCH) | $(ACP)
 	@echo "Install system fs image: $@"
 	$(copy-file-to-target)
+ifneq (0,$(BOARD_SYSTEMIMAGE_PARTITION_SIZE))
 	$(hide) $(call assert-max-image-size,$@ $(RECOVERY_FROM_BOOT_PATCH),$(BOARD_SYSTEMIMAGE_PARTITION_SIZE))
+endif
 
 ifneq ($(MKSQUASHFS),)
 $(PRODUCT_OUT)/system.sfs: $(BUILT_SYSTEMIMAGE)
@@ -1192,7 +1194,9 @@ systemimage-nodeps snod: $(filter-out systemimage-nodeps snod,$(MAKECMDGOALS)) \
 	            | $(INTERNAL_USERIMAGES_DEPS)
 	@echo "make $@: ignoring dependencies"
 	$(call build-systemimage-target,$(INSTALLED_SYSTEMIMAGE))
+ifneq (0,$(BOARD_SYSTEMIMAGE_PARTITION_SIZE))
 	$(hide) $(call assert-max-image-size,$(INSTALLED_SYSTEMIMAGE),$(BOARD_SYSTEMIMAGE_PARTITION_SIZE))
+endif
 
 ifneq (,$(filter systemimage-nodeps snod, $(MAKECMDGOALS)))
 ifeq (true,$(WITH_DEXPREOPT))
