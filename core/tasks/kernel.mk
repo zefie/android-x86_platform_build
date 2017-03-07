@@ -25,7 +25,7 @@ TARGET_KERNEL_CONFIG ?= goldfish_defconfig
 KERNEL_CONFIG_DIR := arch/arm/configs
 endif
 
-CROSS_COMPILE ?= $(abspath $(TARGET_TOOLS_PREFIX))
+CROSS_COMPILE ?= $(abspath $(TARGET_TOOLCHAIN_ROOT)/bin)/x86_64-linux-androidkernel-
 KBUILD_OUTPUT := $(abspath $(TARGET_OUT_INTERMEDIATES)/kernel)
 mk_kernel := $(hide) $(MAKE) -C $(KERNEL_DIR) O=$(KBUILD_OUTPUT) ARCH=$(TARGET_ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(if $(SHOW_COMMANDS),V=1)
 
