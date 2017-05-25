@@ -25,7 +25,11 @@ TARGET_KERNEL_CONFIG ?= goldfish_defconfig
 KERNEL_CONFIG_DIR := arch/arm/configs
 endif
 
+ifeq ($(TARGET_KERNEL_ARCH),x86_64)
+CROSS_COMPILE ?= $(abspath prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6/bin)/x86_64-linux-
+else
 CROSS_COMPILE ?= $(abspath $(TARGET_TOOLS_PREFIX))
+endif
 KBUILD_OUTPUT := $(abspath $(TARGET_OUT_INTERMEDIATES)/kernel)
 mk_kernel := $(hide) $(MAKE) -C $(KERNEL_DIR) O=$(KBUILD_OUTPUT) ARCH=$(TARGET_ARCH) CROSS_COMPILE="$(abspath $(CC_WRAPPER)) $(CROSS_COMPILE)" $(if $(SHOW_COMMANDS),V=1)
 
