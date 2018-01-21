@@ -993,7 +993,7 @@ define build-recoveryimage-target
             rm -rf $(TARGET_RECOVERY_ROOT_OUT)/system; \
             ln -sf /system_root/system $(TARGET_RECOVERY_ROOT_OUT)/system) # Mount the system_root_image to /system_root and symlink /system.
 
-  $(hide) cd "$(TARGET_RECOVERY_OUT)/../obj/kernel" && make INSTALL_MOD_PATH="$(ANDROID_BUILD_TOP)/$(TARGET_RECOVERY_ROOT_OUT)" modules_install
+  $(hide) cd "$(TARGET_RECOVERY_OUT)/../obj/kernel" && make INSTALL_MOD_PATH="$(ANDROID_BUILD_TOP)/$(TARGET_RECOVERY_ROOT_OUT)" modules_install 2>&1
   $(hide) $(MKBOOTFS) -d $(TARGET_OUT) $(TARGET_RECOVERY_ROOT_OUT) | $(MINIGZIP) > $(recovery_ramdisk)
   $(if $(filter true,$(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_SUPPORTS_VBOOT)), \
     $(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $(1).unsigned, \
